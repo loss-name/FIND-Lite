@@ -1,0 +1,1 @@
+# Limitations`n`nKnown weak cases include multimodal landscapes, shifted functions, strong variable coupling, curved narrow valleys, and high-dimensional settings with a limited evaluation budget. Use DE, PSO, CMA-ES, or a hybrid/multistart wrapper when broad global exploration is required.

@@ -1,0 +1,1 @@
+# Reproducibility`n`nRecord Python version, operating system, package version, objective, dimension, bounds, budget, seed list, and baseline parameters. Run supplied scripts from the repository root and keep generated output under `results/`. Do not interpret a single seed as a benchmark conclusion.

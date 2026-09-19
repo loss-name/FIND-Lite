@@ -1,0 +1,1 @@
+# Experiments`n`nReport the function, dimension, evaluation budget, independent seeds, parameters, mean, standard deviation, median, best, and worst objective values. Baselines must use the same evaluation budget and stopping convention.

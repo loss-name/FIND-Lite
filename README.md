@@ -1,24 +1,20 @@
-# FIND-Lite 开源验证项目
+# FIND-Lite
 
-本目录是与历史研究目录隔离的发布准备空间。它冻结当前可复现的 FIND-Lite 实现，并以固定协议验证其性能边界；这里的结果才可作为未来开源说明的依据。
+FIND-Lite is a lightweight, derivative-free line-search optimizer for bounded continuous optimization. It selects two evaluated population points to define a search line and performs local exploration along that geometry.
 
-## 当前定位
+> Research release: this project is intended for reproducible experiments, not a claim of universal global-optimum performance.
 
-FIND-Lite 是一个无梯度、盒约束、两真实点确定一条搜索线的局部线搜索算法。其强项是 Sphere 与旋转病态二次的高精度开发；它不是通用全局优化器。多峰、平移多峰、变量耦合和高维弯曲谷地均可能落后于 DE、PSO。
+## Scope
 
-不要宣称全局收敛、全面优于 DE/PSO，或在未经协议验证的函数上作性能承诺。
+FIND-Lite is most suitable for smooth, bounded, single-objective problems where local exploitation is valuable. It can be competitive on Sphere-like and rotated ill-conditioned quadratic landscapes. Performance may degrade on multimodal, shifted multimodal, strongly coupled, and high-dimensional curved-valley problems.
 
-## 目录
+## Installation
 
-- `src/find_lite.py`：冻结候选实现；默认入口为 `find_lite`。
-- `src/benchmarks.py`：确定性的原始、平移与旋转测试函数。
-- `src/baselines.py`：固定参数的 DE/rand/1/bin 与 gbest PSO 对照。
-- `run_experiments.py`：可复现的批量测试入口。
-- `docs/`：协议、适用范围、消融和发布清单。
-- `results/`：仅存放可复现实验的汇总 JSON/报告，不保存临时数据。
+```bash
+pip install -e .
+```
 
-
-## 最小调用
+## Quick start
 
 ```python
 from find_lite import find_lite
@@ -27,16 +23,27 @@ result = find_lite(objective, bounds, max_evals=10000, seed=42)
 print(result["best_f"], result["best_x"])
 ```
 
-返回值包含 `best_f`、`best_x`、`evaluations` 和单调的 `history`。安装元数据见 `pyproject.toml`；基础测试可用 `pytest tests` 运行。
+## Reproduce experiments
 
-## 快速验证
-
-```powershell
-D:\electron\Python\python.exe run_experiments.py --suite smoke --runs 3 --out results/smoke.json
+```bash
+python run_experiments.py --suite smoke --runs 3 --out results/smoke.json
 ```
 
-完整协议、固定种子、维度、预算与结果解释见 [测试协议](docs/TEST_PROTOCOL.md)。发布前必须完成 [发布清单](docs/RELEASE_CHECKLIST.md)。许可证尚未选择，见 `LICENSE_PENDING.md`。
+See [reproducibility](docs/REPRODUCIBILITY.md) and [performance positioning](docs/PERFORMANCE_POSITIONING.md).
 
-## 当前证据
+## Documentation
 
-阶段一边界扫描、阶段二30种子确认及阶段三未见函数/参数敏感性检查已完成。正式适用范围、反例与对照结果见 [性能定位](docs/PERFORMANCE_POSITIONING.md) 和 [阶段三报告](docs/STAGE3_SUMMARY.md)。这些结果支持有条件定位，不构成通用全局优化声明。 汇总说明见 [算法数据报告](docs/FIND_Lite_算法数据报告.md)。
+- [中文说明](README.zh-CN.md)
+- [Algorithm](docs/ALGORITHM.md)
+- [Experiments](docs/EXPERIMENTS.md)
+- [Limitations](docs/LIMITATIONS.md)
+- [Reproducibility](docs/REPRODUCIBILITY.md)
+- [Changelog](CHANGELOG.md)
+
+## Status
+
+Version 0.1.0 is a research-oriented public release. Results in `results/` are evidence for the stated scope, not a universal benchmark ranking.
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).
